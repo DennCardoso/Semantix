@@ -23,7 +23,7 @@ val counts = textFile . flatMap ( line => line . split ( " " ))
 . reduceByKey ( _ + _ )
 counts . saveAsTextFile ( "hdfs://..." )
 
-Em passo, o código realiza os seguinte procedimentos:
+Descrevendo passo a passo, o código realiza os seguinte procedimentos:
 
 val textFile = sc . textFile ( "hdfs://..." ) --> por meio do sc (sparkcontext), é chamado a função textfile que acessa uma URL para copiar os dados para a variavel "textfile"
 
