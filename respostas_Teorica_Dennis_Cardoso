@@ -1,5 +1,5 @@
 Qual o objetivo do comando cache em Spark?
-Resposta: 
+Resposta: O cache no Spark permite rodar comandos de transformação e ação de dados armazenados em memória. Portanto, todos os comandos de transformação são armazenados em cache até que um comando action é executado, tornando o processo otimizado. por exemplo, quando executamos o comando "textFile", o RDD mantém o comando em memóri
 
 O mesmo código implementado em Spark é normalmente mais rápido que a implementação equivalente em
 MapReduce. Por quê?
