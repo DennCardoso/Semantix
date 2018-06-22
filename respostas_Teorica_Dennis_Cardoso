@@ -1,0 +1,39 @@
+Qual o objetivo do comando cache em Spark?
+Resposta: 
+
+O mesmo código implementado em Spark é normalmente mais rápido que a implementação equivalente em
+MapReduce. Por quê?
+Resposta: A grande vantagem do Spark em relação ao MapReduce é o processamento em tempo de memória (para isso, são usados estruturas como RDD, ou Resilient Distributed Datasets). Por meio desse procedimento, os dados podem ser trabalhos mais eficientemente, principalmente quando se trata de uma grande quantidade de dados. Em contrapartida, o MapReduce faz leitura e escrita direto no disco rigido, tornando a analise mais custosa, ou seja, mais lento que o Spark.
+
+Qual é a função do SparkContext?
+Resposta: A função da Classe SparkContext é iniciar a conexão da aplicação com o Spark Cluster. Por meio do SparkContext, é possível chamar funções como textFile, sequenceFile, parellelize, entre outras, além de permitir a criação e uso de RDDs. Ela é peça fundamental para a iniciação do Spark em uma aplicação.
+
+Explique com suas palavras o que é Resilient Distributed Datasets (RDD).
+Resposta: O RDD é a abstração mais basica utilizada no framework Spark. O RDD é uma coleção distribuida e resiliente de dados que pode ser distribuido em um ou mais partições. Por meio do RDD, o Spark pode realizar processamento dos dados em memória de maneira paralela e otimizada. Análogamente, posso comparar o RDD a uma estrutura de tabela de um banco de dados e essa estrutura pode sofrer processos de transformação (como funções Map, filter, reduceByKey), como também ações (count, collect, first, entre outros).
+
+
+GroupByKey é menos eficiente que reduceByKey em grandes dataset. Por quê?
+Resposta: O comando "Groupbykey" tansmite mais dados durante seus processo de mapping, o que pode gerar exceções de estouro de memória (também chamado de "out of memory exception"). Com Reducebykey, o dado é agrupado/combinado em uma chaves unicas (ou common keys) dentro de cada uma das partições de memória e então é distribuido na rede, reduzindo a quantidade de informações trabalhadas.
+
+
+Explique o que o código Scala abaixo faz.
+val textFile = sc . textFile ( "hdfs://..." )
+val counts = textFile . flatMap ( line => line . split ( " " ))
+. map ( word => ( word , 1 ))
+. reduceByKey ( _ + _ )
+counts . saveAsTextFile ( "hdfs://..." )
+
+Em passo, o código realiza os seguinte procedimentos:
+
+val textFile = sc . textFile ( "hdfs://..." ) --> por meio do sc (sparkcontext), é chamado a função textfile que acessa uma URL para copiar os dados para a variavel "textfile"
+
+val counts = textFile . flatMap ( line => line . split ( " " ))
+. map ( word => ( word , 1 ))
+. reduceByKey ( _ + _ )
+No bloco acima, é realizado um conjunto de transformações e ações. 
+ - O comando flatMap é uma tranformação, quebrando a linha com commando split, considerando os Espaço entre os texto (" "). 
+ - Depois é realizado uma transformação map que retorna tuplas com a seguinte estrutura (word,1)
+ - Por fim é realizado o ReduceBykey, que é o agrupamento das tuplas por meio da chave (no caso, é agrupado pelo campo [0] da tupla, sendo x([0],[1]) ). Importante frisar que o comando "reduceByKey(_+_)" está simplificado e significa o mesmo que "reduceByKey((x,y)=> x + y)"
+
+ 
+
